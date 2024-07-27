@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zingo Menu</title>
+    <link rel="icon" type="image/x-icon" href="assets/Logo.jpg">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+    <style>
+          body {
+            background: linear-gradient(to right, #FFA500, #FF8C00);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(to right, #FFA500, #FF8C00);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: none;
+        }
+
+        .nav-link-custom {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link-custom:hover,
+        .nav-link-custom.active {
+            background: linear-gradient(to right, #FF8C00, #FFA500);
+            color: black;
+            border-color: #FF8C00;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
+        }
+
+        .card-custom {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .text-white-bold {
+            color: white;
+            font-weight: bold;
+        }
+
+        .navbar-link {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .navbar-link:hover,
+        .navbar-link:active {
+            background: linear-gradient(to right, #4e453b, #FFA500);
+            color: black !important;
+            border-color: #FF8C00;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
+        }
+
+        .text-white-normal {
+            color: white;
+            font-weight: normal;
+            text-decoration: none;
+        }
+
+        .border-none {
+            border: none !important;
+        }
+
+        .side-card {
+            width: 100%;
+            max-width: 300px;
+            opacity: 0.5;
+            filter: blur(5px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .side-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        .main-card-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-card {
+            z-index: 1;
+            transition: transform 0.5s ease;
+        }
+
+        .main-card.slide-right {
+            transform: translateX(100%);
+        }
+
+        .main-card.slide-left {
+            transform: translateX(-100%);
+        }
+
+        .card-carousel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .addons-section, .sauces-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .addons-section .addon-card, 
+        .sauces-section .addon-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .addons-section .addon-card img, 
+        .sauces-section .addon-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        .addons-section .addon-card .card-title, 
+        .sauces-section .addon-card .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .addons-section .addon-card .card-text, 
+        .sauces-section .addon-card .card-text {
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .addons-section .addon-card:hover, 
+        .sauces-section .addon-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .addons-section .addon-card:hover ~ .addon-card, 
+        .sauces-section .addon-card:hover ~ .addon-card {
+            filter: blur(3px);
+            opacity: 0.5;
+        }
+
+        .ab-about {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(1.4px);
+            -webkit-backdrop-filter: blur(1.4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .ab-text {
+            color: #fff;
+        }
+
+        .ab-des {
+            text-align: left;
+        }
+
+        .ab-h1 {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .card-carousel {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .side-card {
+                display: none;
+            }
+
+            .main-card {
+                width: 100%;
+                max-width: 90%;
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+            }
+
+            .navbar-link {
+                margin: 10px 0;
+            }
+
+            .addons-section .addon-card,
+            .sauces-section .addon-card {
+                max-width: 100%;
+                flex: 0 0 100%;
+            }
+
+            /* Adjusting the card styles for mobile resolution */
+@media (max-width: 768px) {
+    .card-carousel {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .side-card {
+        display: none;
+    }
+
+    .main-card {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+    }
+
+    .navbar-link {
+        margin: 10px 0;
+    }
+
+    .addons-section .addon-card,
+    .sauces-section .addon-card {
+        max-width: 100%;
+        flex: 0 0 100%;
+        margin-bottom: 20px; /* Add margin to avoid overlapping */
+        padding: 10px; /* Add padding */
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center align the burger selection buttons */
+    }
+
+    .nav-item {
+        margin-bottom: 10px; /* Add margin to the nav items for spacing */
+    }
+
+    .main-card-container {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .main-card {
+        margin-bottom: 20px; /* Add margin below the main card */
+    }
+}
+
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom border-none">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="assets/Logo.jpg" alt="Burger Palace Logo" style="width: 50px; height: 50px; border-radius: 50%;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <!-- Commented out menu items as per original code -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="text-center py-5 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg border-none" style="background: linear-gradient(to right, #FFA500, #FF8C00);">
+        <h1 class="display-4 text-white-bold">Explore Zingo Menu Here</h1>
+        <p class="lead text-white-bold">Discover our delicious selection of meals</p>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-custom border-none">
+        <div class="container">
+            <ul class="navbar-nav mx-auto" id="burgerNav">
+                <!-- Burger navigation will be populated by JavaScript -->
+            </ul>
+        </div>
+    </nav>
+
+    <main class="flex-grow-1 py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="card-carousel col-md-8 position-relative">
+                    <div class="side-card" id="prevCard"></div>
+                    <div class="main-card-container">
+                        <div class="main-card" id="mainCard"></div>
+                    </div>
+                    <div class="side-card" id="nextCard"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="addons-section py-5">
+        <div class="container">
+            <h2 class="text-center text-white-bold mb-4">Add Ons</h2>
+            <div class="row justify-content-center" id="addonsContainer">
+                <!-- Add-ons will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    
+        <section class="sauces-section py-5">
+            <div class="container">
+                <h2 class="text-center text-white-bold mb-4">Sauces</h2>
+                <div class="row justify-content-center" id="saucesContainer">
+                    <!-- Sauces will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+        
+    
+
+    <section class="about-section py-5">
+        <div class="container text-center ab-about">
+            <div class="membership-card ab-text">
+                <h1>About</h1>
+                <h2>A personal project by Abdullah Shahid</h2>
+                <div class="ab-des">
+                    <header>
+                        <div class="container ab-h1">
+                            <h1>Welcome to My Zingo Pakistan-Inspired Project</h1>
+                        </div>
+                    </header>
+                    <div class="container">
+                        <section>
+                            <h2>Purpose</h2>
+                            <p>This project was created solely for educational purposes to practice web development skills. All product images and logos used are sourced from Zingo Pakistan's Instagram account and are used here for learning and demonstration purposes only.</p>
+                        </section>
+                        <section>
+                            <h2>Disclaimer</h2>
+                            <ul>
+                                <li>This is a non-commercial, educational project.</li>
+                                <li>The information provided about products on this site may not be accurate or up-to-date.</li>
+                                <li>This site does not offer any actual products or services.</li>
+                                <li>All intellectual property rights belong to their respective owners.</li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h2>Legal Notice</h2>
+                            <p>If you represent Zingo Pakistan and have concerns about the use of your brand elements in this educational project, please contact me at <a href="mailto:back2abdullah@gmail.com">back2abdullah@gmail.com</a>. I will promptly address any issues and remove content as requested.</p>
+                        </section>
+                        <section>
+                            <h2>About the Developer</h2>
+                            <p>I am a web development enthusiast working on improving my skills through hands-on projects. This site demonstrates my current abilities in <strong>HTML, CSS, JavaScript, React, etc.</strong>.</p>
+                        </section>
+                        <div class="contact">
+                            <p>Thank you for visiting my project site!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-3 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg border-none" style="background: linear-gradient(to right, #FFA500, #FF8C00);">
+        <div class="container">
+            <p class="text-white-normal">&copy; 2024 Abdullah Shahid. All rights reserved.</p>
+            <div class="mt-3">
+                <a href="https://github.com/rabdullahshahid" class="text-white-normal me-3">
+                    <i class="fab fa-github"></i> My Github
+                </a>
+                <a href="https://www.linkedin.com/in/muhammad-abdullah-a59298204/" class="text-white-normal me-3">
+                    <i class="fab fa-linkedin"></i> Muhammad Abdullah
+                </a>
+                <a href="https://www.instagram.com/r.abdullahshahid/" class="text-white-normal me-3">
+                    <i class="fab fa-instagram"></i> @r.abdullahshahid
+                </a>
+                <a href="https://wa.me/+923354473777" class="text-white-normal">
+                    <i class="fab fa-whatsapp"></i> Contact: +92 3354477377
+                </a>
+            </div>
+        </div>
+    </footer>
+    
+
+    <script>
+// Data
+const burgers = [
+    { name: 'Tender Burger', price: 1.00, image: 'assets/Tender.jpg', description: 'Tender chicken with fresh lettuce, Melted Cheese, With the hint of your fav sauces! PRICES ARE NOT CORRECTLY MENTIONED HERE' },
+    { name: 'Crunch Burger', price: 1.00, image: 'assets/Crunch.jpg', description: 'Crispy chicken with fresh lettuce, Melted Cheese, With the hint of your fav sauces! PRICES ARE NOT CORRECTLY MENTIONED HERE' },
+    { name: 'Mighty Burger', price: 1.00, image: 'assets/Mighty.jpg', description: 'Double Crispy Chicken Zinger with fresh lettuce, Melted Cheese, With the hint of your fav sauces! PRICES ARE NOT CORRECTLY MENTIONED HERE' },
+    { name: 'Saucy Wrap', price: 1.00, image: 'assets/Saucy-wrap.jpg', description: 'Saucy the Bossy! PRICES ARE NOT CORRECTLY MENTIONED HERE' },
+    { name: 'Spicy Wrap', price: 1.00, image: 'assets/Spicy-wrap.jpg', description: 'A fiery blend of spices and fresh ingredients for a spicy kick! PRICES ARE NOT CORRECTLY MENTIONED HERE' },
+];
+
+const addons = [
+    { name: 'Cheese', image: 'assets/Cheese.jpeg', description: 'Add delicious cheese to your meal.', price: 0.99 },
+    { name: 'Jalapenos', image: 'assets/Jalapenos.jpg', description: 'Spicy Jalapenos to enhance your burger.', price: 1.99 },
+    { name: 'Dip Sauce', image: 'assets/Sauce-Dip.png', description: 'Get a blast of flavours with our special sauce.', price: 0.99 },
+    { name: 'Mushrooms', image: 'assets/Mushrooms.jpg', description: 'Add mushrooms in your meal to get more flavours.', price: 1.49 },
+    { name: 'French Fries', image: 'assets/Fries.jpg', description: 'Golden and crispy French fries.', price: 1.29 },
+];
+
+const sauces = [
+    { name: 'Suicide Sauce', image: 'assets/Sauce-Dip.png' },
+    { name: 'Chipotle', image: 'assets/Sauce-Dip.png' },
+    { name: 'Smokey BBQ', image: 'assets/Sauce-Dip.png' },
+    { name: 'Honey Mustard', image: 'assets/Sauce-Dip.png' },
+    { name: 'Jalapeno Ranch', image: 'assets/Sauce-Dip.png' },
+];
+
+let currentBurger = 0;
+let sliding = false;
+let slideDirection = '';
+
+// Functions
+function createBurgerCard(burger, onPrev, onNext) {
+    return `
+        <div class="card card-custom rounded-lg shadow-lg overflow-hidden transition-all duration-500 hover:shadow-xl">
+            <img src="${burger.image}" alt="${burger.name}" class="card-img-top" style="height: 300px; object-fit: cover;">
+            <div class="card-body">
+                <h3 class="card-title text-2xl font-bold mb-2">${burger.name}</h3>
+                <p class="card-text mb-3">${burger.description}</p>
+                <p class="card-text text-xl font-semibold mb-4">PKR: ${burger.price.toFixed(2)}</p>
+                <div class="d-flex justify-content-between">
+                    <button onclick="${onPrev}" class="btn btn-outline-dark rounded-circle p-2 transition-all duration-300 hover:bg-orange-500 hover:text-white hover:scale-110">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button onclick="${onNext}" class="btn btn-outline-dark rounded-circle p-2 transition-all duration-300 hover:bg-orange-500 hover:text-white hover:scale-110">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function updateBurgerNav() {
+    const burgerNav = document.getElementById('burgerNav');
+    burgerNav.innerHTML = burgers.map((burger, index) => `
+        <li class="nav-item">
+            <button class="nav-link nav-link-custom btn ${index === currentBurger ? 'active fw-bold' : ''}"
+                    onclick="selectBurger(${index})"
+                    style="color: ${index === currentBurger ? 'black' : 'white'}">
+                ${burger.name}
+            </button>
+        </li>
+    `).join('');
+}
+
+function updateCards() {
+    const prevIndex = (currentBurger - 1 + burgers.length) % burgers.length;
+    const nextIndex = (currentBurger + 1) % burgers.length;
+
+    document.getElementById('prevCard').innerHTML = createBurgerCard(burgers[prevIndex], '', '');
+    document.getElementById('mainCard').innerHTML = createBurgerCard(burgers[currentBurger], 'prevBurger()', 'nextBurger()');
+    document.getElementById('nextCard').innerHTML = createBurgerCard(burgers[nextIndex], '', '');
+
+    document.getElementById('prevCard').style.opacity = sliding ? 0 : 0.5;
+    document.getElementById('nextCard').style.opacity = sliding ? 0 : 0.5;
+
+    setTimeout(() => {
+        document.getElementById('prevCard').style.opacity = 0.5;
+        document.getElementById('nextCard').style.opacity = 0.5;
+        document.getElementById('prevCard').style.filter = 'blur(5px)';
+        document.getElementById('nextCard').style.filter = 'blur(5px)';
+    }, 500);
+}
+
+function nextBurger() {
+    sliding = true;
+    slideDirection = 'right';
+    document.querySelector('.main-card').classList.add('slide-right');
+    setTimeout(() => {
+        currentBurger = (currentBurger + 1) % burgers.length;
+        updateCards();
+        updateBurgerNav();
+        document.querySelector('.main-card').classList.remove('slide-right');
+        sliding = false;
+    }, 500);
+}
+
+function prevBurger() {
+    sliding = true;
+    slideDirection = 'left';
+    document.querySelector('.main-card').classList.add('slide-left');
+    setTimeout(() => {
+        currentBurger = (currentBurger - 1 + burgers.length) % burgers.length;
+        updateCards();
+        updateBurgerNav();
+        document.querySelector('.main-card').classList.remove('slide-left');
+        sliding = false;
+    }, 500);
+}
+
+function selectBurger(index) {
+    if (index !== currentBurger) {
+        sliding = true;
+        slideDirection = index > currentBurger ? 'right' : 'left';
+        document.querySelector('.main-card').classList.add(`slide-${slideDirection}`);
+        setTimeout(() => {
+            currentBurger = index;
+            updateCards();
+            updateBurgerNav();
+            document.querySelector('.main-card').classList.remove(`slide-${slideDirection}`);
+            sliding = false;
+        }, 500);
+    }
+}
+
+function populateAddons() {
+    const addonsContainer = document.getElementById('addonsContainer');
+    addonsContainer.innerHTML = addons.map(addon => `
+        <div class="col-md-2">
+            <div class="addon-card">
+                <img src="${addon.image}" alt="${addon.name}" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="card-title">${addon.name}</h3>
+                    <p class="card-text">${addon.description}</p>
+                    <p class="card-text">Price: $${addon.price.toFixed(2)}</p>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function populateSauces() {
+    const saucesContainer = document.getElementById('saucesContainer');
+    saucesContainer.innerHTML = sauces.map(sauce => `
+        <div class="col-md-2">
+            <div class="addon-card">
+                <img src="${sauce.image}" alt="${sauce.name}" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="card-title">${sauce.name}</h3>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded and parsed');
+    updateBurgerNav();
+    updateCards();
+    populateAddons();
+    populateSauces();
+    lucide.createIcons();
+    console.log('Addons:', addons);
+    console.log('Sauces:', sauces);
+});
+
+    </script>
+</body>
+</html>
