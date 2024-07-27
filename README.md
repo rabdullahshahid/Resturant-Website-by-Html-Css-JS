@@ -66,7 +66,7 @@ This project was created by Abdullah Shahid as a means to practice and showcase 
 - **GitHub:** [Abdullah Shahid](https://github.com/rabdullahshahid)
 - **LinkedIn:** [Muhammad Abdullah](https://www.linkedin.com/in/muhammad-abdullah-a59298204/)
 - **Instagram:** [@r.abdullahshahid](https://www.instagram.com/r.abdullahshahid/)
-- **WhatsApp:** [+92 3354477377](https://wa.me/+923354473777)
+
 
 ## React Version
 
